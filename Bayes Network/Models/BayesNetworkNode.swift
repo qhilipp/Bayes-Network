@@ -16,7 +16,7 @@ class BayesNetworkNode: Equatable, Hashable {
 	var name: String
 	var position: Point
 	var parents: [BayesNetworkNode] = []
-	var probabilities: [[BayesNetworkNode: NodeValue]: Float] = [:]
+	var probabilities: [[BayesNetworkNode?: NodeValue]: Float] = [:]
 	
 	init(name: String, position: Point = Point(x: 0, y: 0)) {
 		self.name = name

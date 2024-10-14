@@ -17,19 +17,10 @@ struct ContentView: View {
 		wetGrass = BayesNetworkNode(name: "Wet Grass")
 		worms = BayesNetworkNode(name: "Worms")
 		
-		rain.probabilities[[:]] = 0.2
-		rain.probabilities[[:]] = 0.8
-		
-		wetGrass.probabilities[[rain: .boolean(value: true)]] = 0.85
-		wetGrass.probabilities[[rain: .boolean(value: false)]] = 0.15
-		
-		worms.probabilities[[wetGrass: .boolean(value: true)]] = 0.9
-		worms.probabilities[[wetGrass: .boolean(value: false)]] = 0.1
-				
 		network = BayesNetwork()
-		network.connect(rain, with: wetGrass)
-		network.connect(wetGrass, with: worms)
-//		network.connect(worms, with: worms)
+		network.quantify(rain, with: [[nil: .boolean(value: true)]: 0.2, [nil: .boolean(value: false)]: 0.8])
+		network.quantify(wetGrass, with: [[rain: .boolean(value: true)]: 0.85, [rain: .boolean(value: false)]: 0.15])
+		network.quantify(worms, with: [[wetGrass: .boolean(value: true)]: 0.9, [wetGrass: .boolean(value: false)]: 0.1])
 	}
 	
     var body: some View {

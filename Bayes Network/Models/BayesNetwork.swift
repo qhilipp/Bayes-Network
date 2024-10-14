@@ -33,6 +33,16 @@ class BayesNetwork {
 		0
 	}
 	
+	func quantify(_ node: BayesNetworkNode, with probabilities: [[BayesNetworkNode?: NodeValue]: Float]) {
+		for parentValueCombination in probabilities.keys {
+			for parent in parentValueCombination.keys {
+				guard let parent else { continue }
+				connect(parent, with: node)
+			}
+		}
+		node.probabilities = probabilities
+	}
+	
 	func connect(_ parent: BayesNetworkNode, with child: BayesNetworkNode) {
 		nodes.insert(parent)
 		nodes.insert(child)
